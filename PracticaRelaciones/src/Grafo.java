@@ -49,7 +49,7 @@ public class Grafo {
         return false;
     }    
     
-    public int grado(){
+    public void grado(){
         num = new ArrayList<Integer>();
         for (Elemento elem : elementos) {
             int count=0;
@@ -60,11 +60,19 @@ public class Grafo {
             }
             num.add(count);
         }
-        int total=0;
-        for(Integer numero:num){
-            total = total+numero;
-        }
-        return total;
     }
-        
+
+    /**
+     * @return the num
+     */
+    public ArrayList<Integer> getNum() {
+        return num;
+    }
+
+    /**
+     * @param num the num to set
+     */
+    public void setNum(ArrayList<Integer> num) {
+        this.num = num;
+    }
 }
