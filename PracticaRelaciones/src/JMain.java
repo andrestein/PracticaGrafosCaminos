@@ -121,8 +121,8 @@ public class JMain extends JFrame {
      * @return void
      */
     private void initialize() {
-        this.setSize(800, 600);
-        this.setResizable(true);
+        this.setSize(861, 457);
+        this.setResizable(false);
         this.setContentPane(getJContentPane());
         this.setTitle("Práctica Grafos");
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
