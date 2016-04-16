@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package octographs;
+
 
 import java.util.ArrayList;
 
@@ -47,19 +47,7 @@ public class Grafo {
             }
         }
         return false;
-    }
-    
-    public boolean fuertementeConexo(){
-        for (Relacion relacion1 : relaciones) {
-            for (Relacion relacion2 : relaciones) {
-                if(relacion1.getElemento1().equals(relacion2.getElemento2()) &&
-                        relacion1.getElemento2().equals(relacion2.getElemento1())){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    }    
     
     public int grado(){
         num = new ArrayList<Integer>();
@@ -78,34 +66,5 @@ public class Grafo {
         }
         return total;
     }
-    
-    public boolean grafoRegular(){
-        if(this.dirigido()){
-            this.grado();
-            for(int i=0;i<num.size();i++){
-                if(num.get(0).equals(num.get(i))){
-                    return true;
-                }
-            }
-            return false;
-        }else{
-            return false;
-        }
-    }
-    
-    public boolean grafoCompleto(){
-        if(this.dirigido()){
-            int k=(elementos.size()*(elementos.size()-1))/2;
-            if(k == relaciones.size()){
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            return false;
-        }
         
-    }   
-    
-    
 }
