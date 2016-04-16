@@ -6,6 +6,7 @@
 
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  *
@@ -13,13 +14,14 @@ import java.util.ArrayList;
  */
 public class Grafo {
     
-    private ArrayList<Relacion> relaciones;
-    private ArrayList<Elemento> elementos;
+    private Vector<Relacion> relaciones;
+    private Vector<Elemento> elementos;
     private ArrayList<Integer> num;
     
-    public Grafo(ArrayList<Relacion> relaciones,ArrayList<Elemento> elementos){
+    public Grafo(Vector<Relacion> relaciones,Vector<Elemento> elementos){
         this.relaciones = relaciones;
         this.elementos = elementos;
+        
     }
     
     public boolean dirigido(){
@@ -60,6 +62,16 @@ public class Grafo {
             }
             num.add(count);
         }
+    }
+    
+    public int gradoNodo(Elemento elemento){
+        int count =0;
+        for (Relacion relacion : relaciones) {
+            if(elemento.equals(relacion.getElemento1()) || elemento.equals(relacion.getElemento2())){
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
