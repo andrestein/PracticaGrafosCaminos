@@ -6,6 +6,7 @@
 
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Grafo {
     public Grafo(ArrayList<Relacion> relaciones,ArrayList<Elemento> elementos){
         this.relaciones = relaciones;
         this.elementos = elementos;
+        this.grado();        
     }
     
     public boolean dirigido(){
@@ -36,8 +38,7 @@ public class Grafo {
         return true;        
     }
     
-    public boolean conexo(){
-        if(!this.dirigido()){
+    public boolean conexo(){        
             for (Elemento elemento: elementos) {
                 for (Relacion relacion : relaciones) {
                     if(relacion.getElemento1().equals(elemento) || relacion.getElemento2().equals(elemento)){
@@ -45,7 +46,7 @@ public class Grafo {
                     }
                 }
             }
-        }
+        
         return false;
     }    
     
@@ -60,6 +61,16 @@ public class Grafo {
             }
             num.add(count);
         }
+    }
+    
+    public int gradoNodo(Elemento elemento){
+        int count =0;
+        for (Relacion relacion : relaciones) {
+            if(elemento.equals(relacion.getElemento1()) || elemento.equals(relacion.getElemento2())){
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
