@@ -62,6 +62,13 @@ public class Lienzo extends JPanel {
         getJGraficas();
     }
 
+    public void clear(){
+        relaciones.clear();
+        elementos.clear();
+        repaint();
+    }
+    
+    
     @Override
     public void paintComponent(Graphics grafico) {
         super.paintComponent(grafico);

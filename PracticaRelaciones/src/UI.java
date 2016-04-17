@@ -121,9 +121,12 @@ public class UI extends javax.swing.JPanel {
     public void botones(){
         btnGenerar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                checkCaminoHaminton.setSelected(caminoHamilton());
+                checkCicloHaminton.setSelected(cicloHamilton());
                 checkCaminoEuler.setSelected(caminoEuler());
                 checkCicloEuler.setSelected(cicloEuler());
                 txtCaminoEuler.setText(mostrarCaminoEuler());
+                txtCaminoHaminton.setText(mostrarCaminoHamilton());
             }
         });
         
@@ -131,14 +134,21 @@ public class UI extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 checkCaminoEuler.setSelected(false);
                 checkCicloEuler.setSelected(false);
+                checkCaminoHaminton.setSelected(false);
+                checkCicloHaminton.setSelected(false);
                 txtCaminoEuler.setText("");
                 txtCaminoHaminton.setText("");
                 txtCicloEuler.setText("");
                 txtCicloEuler.setText("");
-                
+                lienzo.clear();
+
                  
             }
         });
+    }
+    public String mostrarCaminoHamilton(){
+        
+        return "No tiene camino de Hamilton";
     }
     
     public String mostrarCaminoEuler(){        
@@ -168,7 +178,7 @@ public class UI extends javax.swing.JPanel {
                         if(relacion1.getElemento2().equals(relacion.getElemento1())){
                             if(!recorrido.contains(relacion1)){
                                 recorrido.add(relacion1);
-                                camino = camino+" , "+relacion1.getElemento1().getNombre();
+                                camino = camino+" , "+relacion1.getElemento2().getNombre();
                             }
                         }
                     }                    
@@ -211,6 +221,44 @@ public class UI extends javax.swing.JPanel {
                 }
             }
             if(k == 2){
+                return true;
+            }else{
+                return false;
+           }
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean caminoHamilton(){
+        int m=0;
+        Grafo grafo =new Grafo(lienzo.relaciones, lienzo.elementos);
+        if(grafo.conexo()){
+            for(int i=0;i<grafo.getNum().size();i++){
+                if (grafo.getNum().get(i)%2!=0){
+                 m++;   
+                }
+                
+            }
+            if(m==2){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    public boolean cicloHamilton(){
+        int m=0;
+        Grafo grafo = new Grafo(lienzo.relaciones, lienzo.elementos);
+        if(grafo.conexo()){
+            for (int i=0;i<grafo.getNum().size();i++){
+                if(grafo.getNum().get(i) % 2 != 0){
+                    m++;
+                }
+            }
+            if(m == 0){
                 return true;
             }else{
                 return false;
