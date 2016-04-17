@@ -623,8 +623,9 @@ public class JMain extends JFrame {
      
 */
     protected void btnGenerar_click(ActionEvent e) {
-        System.out.println("Botón intersección");
+        System.out.println("Boton Generar");
         universal.clear();
+        
           
     }    
             
