@@ -14,14 +14,14 @@ import java.util.Vector;
  */
 public class Grafo {
     
-    private Vector<Relacion> relaciones;
-    private Vector<Elemento> elementos;
+    private ArrayList<Relacion> relaciones;
+    private ArrayList<Elemento> elementos;
     private ArrayList<Integer> num;
     
-    public Grafo(Vector<Relacion> relaciones,Vector<Elemento> elementos){
+    public Grafo(ArrayList<Relacion> relaciones,ArrayList<Elemento> elementos){
         this.relaciones = relaciones;
         this.elementos = elementos;
-        
+        this.grado();        
     }
     
     public boolean dirigido(){
@@ -38,8 +38,7 @@ public class Grafo {
         return true;        
     }
     
-    public boolean conexo(){
-        if(!this.dirigido()){
+    public boolean conexo(){        
             for (Elemento elemento: elementos) {
                 for (Relacion relacion : relaciones) {
                     if(relacion.getElemento1().equals(elemento) || relacion.getElemento2().equals(elemento)){
@@ -47,7 +46,7 @@ public class Grafo {
                     }
                 }
             }
-        }
+        
         return false;
     }    
     

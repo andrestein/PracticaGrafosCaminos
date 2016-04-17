@@ -2,6 +2,9 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -27,24 +30,25 @@ public class UI extends javax.swing.JPanel {
     private JCheckBox checkCaminoEuler,checkCicloEuler,checkCaminoHaminton,checkCicloHaminton;
     private JTextArea txtCaminoEuler,txtCicloEuler,txtCaminoHaminton,txtCicloHaminton;
     private JLabel lb;
+    private Lienzo lienzo;
 
     /**
      * Creates new form UI
      */
     public UI() {
         iniciarComponentes();
+        botones();
     }
-    
     
     private void iniciarComponentes(){
         this.setLayout(new BorderLayout());
         panelBotones();
-        Lienzo lienzo= new Lienzo();
+        lienzo= new Lienzo();
         panelBotones();
         this.add(panelBotones,BorderLayout.SOUTH);
         this.add(lienzo, BorderLayout.CENTER);        
         panelCaminos();
-        this.add(panelCaminos,BorderLayout.EAST);
+        this.add(panelCaminos,BorderLayout.EAST);        
         
     }
     
@@ -71,11 +75,13 @@ public class UI extends javax.swing.JPanel {
         txtCaminoEuler = new JTextArea();
         txtCaminoEuler.setBorder(BorderFactory.createCompoundBorder(border, 
             BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        txtCaminoEuler.setEditable(false);
         panelCaminos.add(txtCaminoEuler);
         //ciclo de euler text area
         txtCicloEuler = new JTextArea();
         txtCicloEuler.setBorder(BorderFactory.createCompoundBorder(border,
                 BorderFactory.createEmptyBorder(10,10,10,10)));        
+        txtCicloEuler.setEditable(false);
         panelCaminos.add(txtCicloEuler);        
         //camino haminton check
         checkCaminoHaminton =  new JCheckBox("Camino de Haminton");
@@ -89,11 +95,13 @@ public class UI extends javax.swing.JPanel {
         txtCaminoHaminton = new JTextArea();
         txtCaminoHaminton.setBorder(BorderFactory.createCompoundBorder(border,
                 BorderFactory.createEmptyBorder(10,10,10,10)));  
+        txtCaminoHaminton.setEditable(false);
         panelCaminos.add(txtCaminoHaminton);
         //Text area ciclo haminton
         txtCicloHaminton = new JTextArea();
         txtCicloHaminton.setBorder(BorderFactory.createCompoundBorder(border,
                 BorderFactory.createEmptyBorder(10,10,10,10)));  
+        txtCicloHaminton.setEditable(false);
         panelCaminos.add(txtCicloHaminton);
     }
 
@@ -108,6 +116,108 @@ public class UI extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
     }// </editor-fold>//GEN-END:initComponents
+ 
+    
+    public void botones(){
+        btnGenerar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                checkCaminoEuler.setSelected(caminoEuler());
+                checkCicloEuler.setSelected(cicloEuler());
+                txtCaminoEuler.setText(mostrarCaminoEuler());
+            }
+        });
+        
+        btnEliminar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                checkCaminoEuler.setSelected(false);
+                checkCicloEuler.setSelected(false);
+                txtCaminoEuler.setText("");
+                txtCaminoHaminton.setText("");
+                txtCicloEuler.setText("");
+                txtCicloEuler.setText("");
+                 
+            }
+        });
+    }
+    
+    public String mostrarCaminoEuler(){        
+        Grafo grafo = new Grafo(lienzo.relaciones, lienzo.elementos);
+        ArrayList<Elemento> inicioFin = new ArrayList<Elemento>();
+        ArrayList<Relacion> recorrido=new ArrayList<Relacion>();
+        if(caminoEuler()){
+            for (int i=0;i<grafo.getNum().size();i++){
+                if(grafo.getNum().get(i) % 2 != 0){                    
+                    inicioFin.add(lienzo.elementos.get(i));                 
+                }
+            }
+            Elemento temp= inicioFin.get(0);
+            String camino=temp.getNombre();
+            for (Relacion relacion: lienzo.relaciones){
+                if(relacion.getElemento1().equals(temp)){
+                    for (Relacion relacion1 : lienzo.relaciones) {
+                        if(relacion1.getElemento1().equals(relacion.getElemento2())){
+                            if(!recorrido.contains(relacion1)){
+                                recorrido.add(relacion1);
+                                camino = camino+" , "+relacion1.getElemento1().getNombre();
+                            }
+                        }
+                    }                    
+                }else if(relacion.getElemento2().equals(temp)){
+                    for (Relacion relacion1 : lienzo.relaciones) {
+                        if(relacion1.getElemento2().equals(relacion.getElemento1())){
+                            if(!recorrido.contains(relacion1)){
+                                recorrido.add(relacion1);
+                                camino = camino+" , "+relacion1.getElemento1().getNombre();
+                            }
+                        }
+                    }                    
+                    
+                }
+            }
+            return camino;
+        }else{
+            return "No tiene camino de euler";
+        }
+        
+    }
+    
+    public boolean cicloEuler(){
+        int k=0;
+        Grafo grafo = new Grafo(lienzo.relaciones, lienzo.elementos);
+        if(grafo.conexo()){
+            for (int i=0;i<grafo.getNum().size();i++){
+                if(grafo.getNum().get(i) % 2 != 0){
+                    k++;
+                }
+            }
+            if(k == 0){
+                return true;
+            }else{
+                return false;
+           }
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean caminoEuler(){
+        int k=0;        
+        Grafo grafo = new Grafo(lienzo.relaciones, lienzo.elementos);
+        if(grafo.conexo()){
+            for (int i=0;i<grafo.getNum().size();i++){
+                if(grafo.getNum().get(i) % 2 != 0){
+                    k++;
+                }
+            }
+            if(k == 2){
+                return true;
+            }else{
+                return false;
+           }
+        }else{
+            return false;
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

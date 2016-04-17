@@ -79,7 +79,7 @@ public class Lienzo extends JPanel {
             drawArrow(grafico, elementoSeleccionado.getX() + tArco, elementoSeleccionado.getY() + tArco, flecha.x + tArco, flecha.y + tArco, 3L, 2);
         }
     }
-
+    
     private JPanel getJGraficas() {
        
         if (jGraficas == null) {
