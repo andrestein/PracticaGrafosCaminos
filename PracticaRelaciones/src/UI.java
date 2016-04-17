@@ -135,6 +135,7 @@ public class UI extends javax.swing.JPanel {
                 txtCaminoHaminton.setText("");
                 txtCicloEuler.setText("");
                 txtCicloEuler.setText("");
+                lienzo.clear();
                  
             }
         });
@@ -167,7 +168,7 @@ public class UI extends javax.swing.JPanel {
                         if(relacion1.getElemento2().equals(relacion.getElemento1())){
                             if(!recorrido.contains(relacion1)){
                                 recorrido.add(relacion1);
-                                camino = camino+" , "+relacion1.getElemento1().getNombre();
+                                camino = camino+" , "+relacion1.getElemento2().getNombre();
                             }
                         }
                     }                    
