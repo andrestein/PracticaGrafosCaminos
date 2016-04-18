@@ -148,7 +148,7 @@ public class UI extends javax.swing.JPanel {
     }
     public String mostrarCaminoHamilton(){
         
-        return "No tiene camino de Hamilton";
+        return "";
     }
     
     public String mostrarCaminoEuler(){        
@@ -194,17 +194,22 @@ public class UI extends javax.swing.JPanel {
     
     public boolean cicloEuler(){
         int k=0;
+        float aux=0;
         Grafo grafo = new Grafo(lienzo.relaciones, lienzo.elementos);
         if(grafo.conexo()){
             for (int i=0;i<grafo.getNum().size();i++){
-                if(grafo.getNum().get(i) % 2 != 0){
+                if(grafo.getNum().get(i)%2!=0)
+                {
+                
                     k++;
-                }
+                
+                
             }
-            if(k == 0){
-                return true;
-            }else{
+            }
+            if(k >= 1){
                 return false;
+            }else{
+                return true;
            }
         }else{
             return false;
@@ -213,14 +218,17 @@ public class UI extends javax.swing.JPanel {
     
     public boolean caminoEuler(){
         int k=0;        
+        float aux=0;
         Grafo grafo = new Grafo(lienzo.relaciones, lienzo.elementos);
         if(grafo.conexo()){
             for (int i=0;i<grafo.getNum().size();i++){
-                if(grafo.getNum().get(i) % 2 != 0){
+                
+                if(grafo.getNum().get(i) == aux){
                     k++;
                 }
+                aux=grafo.getNum().get(i);
             }
-            if(k == 2){
+            if(k <= 1){
                 return true;
             }else{
                 return false;
@@ -232,15 +240,16 @@ public class UI extends javax.swing.JPanel {
     
     public boolean caminoHamilton(){
         int m=0;
+        float aux=0;
         Grafo grafo =new Grafo(lienzo.relaciones, lienzo.elementos);
         if(grafo.conexo()){
             for(int i=0;i<grafo.getNum().size();i++){
-                if (grafo.getNum().get(i)%2!=0){
+                if (grafo.getNum().get(i)==aux){
                  m++;   
                 }
-                
+                aux=grafo.getNum().get(i);
             }
-            if(m==2){
+            if(m<=1){
                 return true;
             }else{
                 return false;
@@ -251,14 +260,16 @@ public class UI extends javax.swing.JPanel {
     }
     public boolean cicloHamilton(){
         int m=0;
+        float aux=0;
         Grafo grafo = new Grafo(lienzo.relaciones, lienzo.elementos);
         if(grafo.conexo()){
             for (int i=0;i<grafo.getNum().size();i++){
-                if(grafo.getNum().get(i) % 2 != 0){
+                if(grafo.getNum().get(i) == aux){
                     m++;
                 }
+                aux=grafo.getNum().get(i);
             }
-            if(m == 0){
+            if(m >= 2){
                 return true;
             }else{
                 return false;
